@@ -32,7 +32,7 @@ on:
 
 env:
   AWS_REGION: cn-north-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: hello-repository-wenzf           # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: cloudreve-wenzf           # set this to your Amazon ECR repository name
   APPLICATION_NAME: GitHubApplication
   DEPLOYMENT_GROUP_NAME: tutorial-bluegreen-dg
   DEPLOYMENT_CONFIG_NAME: CodeDeployDefault.ECSAllAtOnce
