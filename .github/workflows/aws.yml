@@ -89,7 +89,6 @@ jobs:
       id: appspec
       run: |
         ls -l
-        cat /tmp/appspec.yaml
         export taskDefinitionArnLatest=$(aws ecs list-task-definitions --family-prefix task-def-blue-green --sort DESC --query taskDefinitionArns[0])
         sed "s#AAAA#$taskDefinitionArnLatest#g" appspec.yaml > /tmp/appspec.yaml
         aws s3 cp /tmp/appspec.yaml s3://ecs-codedeploy-appspec/appspec.yaml
