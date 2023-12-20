@@ -96,10 +96,6 @@ jobs:
     - name: Create CodeDeploy Deployment
       id: deploy
       run: |
-        echo $APPLICATION_NAME
-        echo $DEPLOYMENT_GROUP_NAME
-        echo $DEPLOYMENT_CONFIG_NAME
-        echo ${{ env.AWS_REGION }}
         aws deploy create-deployment \
           --application-name $APPLICATION_NAME \
           --deployment-group-name $DEPLOYMENT_GROUP_NAME \
