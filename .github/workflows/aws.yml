@@ -70,7 +70,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Build, tag, and push docker image to Amazon ECR
-      #id: build-image
+      id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}    #latest
@@ -85,13 +85,26 @@ jobs:
         docker push 472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf
         echo "image=472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf" >> $GITHUB_OUTPUT
 
+    - name: Update Appspec Yaml to S3
+      id: appspec
+      run: |
+        cat /tmp/appspec.yaml
+        export taskDefinitionArnLatest=$(aws ecs list-task-definitions --family-prefix task-def-blue-green --sort DESC --query taskDefinitionArns[0])
+        sed "s#AAAA#$taskDefinitionArnLatest#g" appspec.yaml > /tmp/appspec.yaml
+        aws s3 cp /tmp/appspec.yaml s3://ecs-codedeploy-appspec/appspec.yaml
+        cat /tmp/appspec.yaml
+    
     - name: Create CodeDeploy Deployment
       id: deploy
       run: |
-          aws deploy create-deployment \
-            --application-name $APPLICATION_NAME \
-            --deployment-group-name $DEPLOYMENT_GROUP_NAME \
-            --deployment-config-name $DEPLOYMENT_CONFIG_NAME \
-            --region cn-north-1 \
-            #--s3-location bucket=ecs-codedeploy-appspec,key=appspec.yaml,bundleType=YAML
+        echo $APPLICATION_NAME
+        echo $DEPLOYMENT_GROUP_NAME
+        echo $DEPLOYMENT_CONFIG_NAME
+        echo ${{ env.AWS_REGION }}
+        aws deploy create-deployment \
+          --application-name $APPLICATION_NAME \
+          --deployment-group-name $DEPLOYMENT_GROUP_NAME \
+          --deployment-config-name $DEPLOYMENT_CONFIG_NAME \
+          --region cn-north-1 \
+          #--s3-location bucket=ecs-codedeploy-appspec,key=appspec.yaml,bundleType=YAML
 
