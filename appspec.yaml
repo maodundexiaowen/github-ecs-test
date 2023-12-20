@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:		
-        TaskDefinition: "AAAA"
+        TaskDefinition: AAAA
         LoadBalancerInfo:
           ContainerName: "sample-app"
           ContainerPort: 5212
