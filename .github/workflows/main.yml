@@ -23,9 +23,10 @@ name: New Github Actions to ECS with CodeDeploy
 on:
   #push:
     #branches: [ "main" ]
-  pull_request:
+  #pull_request:
     #types: [submitted]
-    types: [review_approved]
+  pull_request_review:
+    types: [submitted]
     branches:
       - main
   workflow_dispatch:
@@ -50,7 +51,7 @@ env:
 jobs:
   deploy:
     name: CI CD CodeDeploy ECS
-    #if: github.event.review.state == 'APPROVED'
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     environment: production
 
