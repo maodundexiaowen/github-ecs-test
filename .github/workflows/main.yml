@@ -25,6 +25,7 @@ on:
     #branches: [ "main" ]
   pull_request:
     #types: [submitted]
+    types: [review_approved]
     branches:
       - main
   workflow_dispatch:
@@ -49,7 +50,7 @@ env:
 jobs:
   deploy:
     name: CI CD CodeDeploy ECS
-    if: github.event.review.state == 'APPROVED'
+    #if: github.event.review.state == 'APPROVED'
     runs-on: ubuntu-latest
     environment: production
 
