@@ -18,7 +18,7 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Github Actions to ECS with CodeDeploy
+name: New Github Actions to ECS with CodeDeploy
 
 on:
   #push:
