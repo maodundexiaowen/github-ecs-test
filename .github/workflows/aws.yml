@@ -27,8 +27,12 @@
 name: Github Actions to Amazon CodeDeploy and ECS
 
 on:
-  push:
-    branches: [ "maodundexiaowen-patch-3" ]
+  #push:
+    #branches: [ "main" ]
+  pull_request_review:
+    types: [submitted]
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -50,7 +54,8 @@ env:
 
 jobs:
   deploy:
-    name: Deploy
+    name: CI CD CodeDeploy ECS
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     environment: production
 
@@ -90,7 +95,7 @@ jobs:
       id: appspec
       run: |
         export taskDefinitionArnLatest=$(aws ecs list-task-definitions --family-prefix task-def-blue-green --sort DESC --query taskDefinitionArns[0])
-        sed "s#AAAA#$taskDefinitionArnLatest#g" appspec.yaml > /tmp/appspec.yaml
+        sed "s#TaskDefinitionArn#$taskDefinitionArnLatest#g" appspec.yaml > /tmp/appspec.yaml
         aws s3 cp /tmp/appspec.yaml s3://ecs-codedeploy-appspec/appspec.yaml
         cat /tmp/appspec.yaml
     
