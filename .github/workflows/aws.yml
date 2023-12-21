@@ -29,6 +29,7 @@ name: Github Actions to Amazon CodeDeploy and ECS
 on:
   push:
     branches: [ "maodundexiaowen-patch-3" ]
+  workflow_dispatch:
 
 env:
   AWS_REGION: cn-north-1                   # set this to your preferred AWS region, e.g. us-west-1
