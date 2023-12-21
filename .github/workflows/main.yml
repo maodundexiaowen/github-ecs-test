@@ -24,7 +24,7 @@ on:
   #push:
     #branches: [ "main" ]
   pull_request_review:
-    types: [submitted]
+    #types: [submitted]
     branches:
       - main
   workflow_dispatch:
