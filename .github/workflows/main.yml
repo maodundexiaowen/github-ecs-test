@@ -49,7 +49,7 @@ env:
 jobs:
   deploy:
     name: CI CD CodeDeploy ECS
-    #if: github.event.review.state == 'approved'
+    if: github.event.review.state == 'APPROVED'
     runs-on: ubuntu-latest
     environment: production
 
