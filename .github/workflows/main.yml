@@ -88,7 +88,7 @@ jobs:
         docker push 472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf
         echo "image=472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf" >> $GITHUB_OUTPUT
         echo ${{ github.event.review.state }}
-        echo github.event.review.state
+        echo "Review State: ${{ github.event.review.state }}"
 
     - name: Update Appspec Yaml to S3
       id: appspec
