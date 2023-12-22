@@ -52,7 +52,7 @@ jobs:
   deploy:
     name: CI CD CodeDeploy ECS
     #if: github.event.review.state == 'approved'
-    if: github.event.pull_request.merged == true && github.event.review.state == 'approved'
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment: production
 
@@ -87,6 +87,8 @@ jobs:
         docker build -t 472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf .
         docker push 472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf
         echo "image=472143616581.dkr.ecr.cn-north-1.amazonaws.com.cn/cloudreve-wenzf" >> $GITHUB_OUTPUT
+        echo ${{ github.event.review.state }}
+        echo github.event.review.state
 
     - name: Update Appspec Yaml to S3
       id: appspec
