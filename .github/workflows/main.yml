@@ -52,7 +52,7 @@ jobs:
   deploy:
     name: CI CD CodeDeploy ECS
     #if: github.event.review.state == 'approved'
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     environment: production
 
